@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-timer-function
+  labels:
+    app: dotnet-timer-function
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-timer-function
+  template:
+    metadata:
+      labels:
+        app: dotnet-timer-function
+    spec:
+      containers:
+      - name: dotnet-timer-function
+        image: ghcr.io/scallighan/azure-functions-on-aks:latest
+        imagePullPolicy: Always
+        env:
+        - name: FUNCTIONS_WORKER_RUNTIME
+          value: dotnet-isolated
+        - name: AzureWebJobsStorage
+          value: #REPLACEME
+        
